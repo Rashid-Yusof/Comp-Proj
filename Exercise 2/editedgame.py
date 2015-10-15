@@ -134,6 +134,7 @@ def execute_take(item_id):
         if item_id == item['id']:
             inventory.append(item)
             current_room['items'].remove(item)
+            print(item['description'])
             return
     print ('You cannot take that')
     
@@ -181,13 +182,16 @@ def execute_command(command):
         
 def main():
     
+    print("You are nearly late for your first lecture and you realise that you have forgotten to bring a pen! To beat the game, find a pen for class!")
+
     while True:
         display_room(current_room)
         print_inventory_items(inventory)
         command = menu(current_room["exits"], current_room["items"], inventory)
         command = command.split()
         execute_command(command)
-        
+        checkinv(1.0)
+
         if item_pen in inventory:
             print ('YOU FINALLY GOT A PEN FOR UNIVERSITY.')
             break
