@@ -17,7 +17,9 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    pass # The pass statement does nothing. Replace it with the body of your function.
+    for c in string.punctuation:
+        text = text.replace(c, '')
+    return text
     
     
 def remove_spaces(text):
@@ -36,7 +38,9 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    pass
+    text = text.lstrip()
+    text = text.rstrip()
+    return text
 
 
 def normalise_input(user_input):
@@ -51,7 +55,9 @@ def normalise_input(user_input):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    pass
+    user_input = remove_punct(user_input)
+    user_input = remove_spaces(user_input)
+    return user_input.lower()
 
     
 def display_room(room):
@@ -73,7 +79,11 @@ def display_room(room):
 
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
-    # pass # The pass statement does nothing. Replace it with the body of your function.
+    print('')
+    print(room['name'].upper())
+    print('')
+    print(room['description'])
+    print('')
 
     
 def exit_leads_to(exits, direction):
@@ -88,7 +98,9 @@ def exit_leads_to(exits, direction):
     >>> exit_leads_to(rooms["Tutor"]["exits"], "west")
     'Reception'
     """
-    pass
+    room_id = exits[direction]
+    room = rooms[room_id]
+    return(room['name'])
     
 
 def print_menu_line(direction, leads_to):
@@ -104,7 +116,7 @@ def print_menu_line(direction, leads_to):
     >>> print_menu_line("south", "MJ and Simon's room")
     Go SOUTH to MJ and Simon's room.
     """
-    pass
+    print('Go', direction.upper(), 'to', leads_to + '.')
 
 
 def print_menu(exits):
@@ -122,13 +134,10 @@ def print_menu(exits):
     Go SOUTH to MJ and Simon's room.
     Where do you want to go?
     """
-    print("You can:")
-    
-    # COMPLETE THIS PART:
-    # Iterate over available exits:
-    #     and for each exit print the appropriate menu line
-
-    print("Where do you want to go?")
+    print ('You can:')
+    for key in exits:
+        print_menu_line(key, exit_leads_to(exits, key))
+    print('Where do you want to go?')
 
 
 def is_valid_exit(exits, user_input):
@@ -147,7 +156,10 @@ def is_valid_exit(exits, user_input):
     >>> is_valid_exit(rooms["Parking"]["exits"], "east")
     True
     """
-    pass
+    if user_input in exits:
+        return True
+    else:
+        return False
 
 
 def menu(exits):
@@ -159,20 +171,15 @@ def menu(exits):
     is_valid_exit(). If the exit is valid then the function returns the name
     of the chosen exit. Otherwise the menu is displayed again and the player
     prompted, repeatedly, until a correct choice is entered."""
-
-    # Repeat until the player enter a valid choice
     while True:
-        pass
-        # COMPLETE THIS PART:
-        
-        # Display menu
-
-        # Read player's input
-
-        # Normalise the input
-
-        # Check if the input makes sense (is valid exit)
-            # If so, return the player's choice
+        print_menu(exits)
+        answer = normalise_input(input())
+        validity = is_valid_exit(exits, answer)
+        if validity == True:
+            return answer
+            break
+        else:
+            print ('\n**Please choose one of the directions given!**\n')
 
 
 
@@ -189,27 +196,18 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    pass
+    return rooms[exits[direction]]
 
 
 # This is the entry point of our program
 def main():
-    # Start game at the reception
     current_room = rooms["Reception"]
-
-    # Main game loop
+    
     while True:
-        # Display game status (room description etc.)
         display_room(current_room)
-
-        # What are the possible exits from the current room?
         exits = current_room["exits"]
-
-        # Show the menu with exits and ask the player
         direction = menu(exits)
-
-        # Move the protagonist, i.e. update the current room
-        current_room = move(exits, direction)
+        current_room = move(exits, direction)   
 
 
 # Are we being run as a script? If so, run main().
