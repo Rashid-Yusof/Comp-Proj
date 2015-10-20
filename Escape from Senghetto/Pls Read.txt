@@ -1,0 +1,27 @@
+For some reason program cannot import items from
+finalmap, so I copy pasted the code into
+map.py.
+
+I'm not really sure if the program will work without either files,
+so just don't delete anything lol.
+
+But if you want to make changes to the map or items,
+make changes to map.py and finalItems.py respectively.
+
+TO-DO:
+1) Endings(draft)
+-> 'didn't hide body' ending failed
+
+2) sell laptop event
+-> need to add condition that guy is there
+
+3) optional: Colored text to make things more readable.
+
+4) shop bug: buying wand does not deduct money
+
+5) ending descriptions print improperly
+
+Suggestions:
+1) Reduce amount of items/make items usable for puzzles
+
+*You can add more things here if we missed something!
