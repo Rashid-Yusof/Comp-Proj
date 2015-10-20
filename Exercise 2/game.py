@@ -28,7 +28,7 @@ def list_of_items(items):
     for item in items:
         new_list.append(item['name'])
     if new_list == []:
-        return 'no items'
+        return ''
     return ', '.join(new_list)
 
 
@@ -54,7 +54,9 @@ def print_room_items(room):
     Note: <BLANKLINE> here means that doctest should expect a blank line.
 
     """
-    print ('There is/are' ,list_of_items(room['items']), 'here.')
+    if len(list_of_items(room['items'])) > 0:
+        print ('There is' ,list_of_items(room['items']), 'here.')
+        print ('')
 
 
 def print_inventory_items(items):
@@ -68,7 +70,7 @@ def print_inventory_items(items):
 
     """
     print ('You have',list_of_items(items) + '.')
-    print ()
+    print ('')
 
 
 def print_room(room):
@@ -117,13 +119,12 @@ def print_room(room):
 
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
-    print()
-    print(room["name"].upper())
-    print()
-    print(room["description"])
-    print()
-    print_room_items(room)
     print('')
+    print(room["name"].upper())
+    print('')
+    print(room["description"])
+    print('')
+    print_room_items(room)
 
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
